@@ -9,9 +9,15 @@ namespace LeafBlowerFiddleModel.Modules {
         public static bool IsEnabled { get; set; }
         private static CancellationTokenSource TokenSource { get; set; }
 
+        private const double HookOffset = 0.275d;
+        private const double ClawMachineWindowOffsetTop = 0.129629d;
+        private const double ClawMachineWindowOffsetBottom = 0.869791d;
+        private const double ClawMachineWindowOffsetLeft = 0.109375d;
+        private const double ClawMachineWindowOffsetRight = 0.869791d;
+
         // TODO - Add all item pixels
         // I am too lazy to add all the materials, items and community leaves lol.
-        public static Color[] Items { get; } = new Color[] {
+        public static Color[] Items { get; } = {
             Color.FromArgb(223, 197, 11), // Rare Chest
             Color.FromArgb(100, 116, 122), // Chest
             Color.FromArgb(199, 153, 92), // Chest
@@ -22,7 +28,7 @@ namespace LeafBlowerFiddleModel.Modules {
             Color.FromArgb(217, 138, 41), // Cheese
             Color.FromArgb(96, 128, 112), //Shield
             Color.FromArgb(242, 175, 27), //Shield
-            Color.FromArgb(96, 248, 17) // Green Borb
+            Color.FromArgb(96, 248, 17) // Green borb
         };
 
         public static void Toggle() {
@@ -40,19 +46,21 @@ namespace LeafBlowerFiddleModel.Modules {
         private static void Action() {
             while(!TokenSource.IsCancellationRequested) {
                 var screen = Window.PrintWindow();
-                var bestItemX = GetBestItemCoordinates(screen).Item1 + 5;
+                var bestItemX = GetBestItemCoordinates(screen).X + 5;
 
                 // Compensate for border if not fullscreen.
                 Point border = Window.GetBorderSize();
                 int offset = border.Y > 20 ? border.Y - 15 : 0;
-                int hookY = (int) (screen.Height * 0.275d + offset);
+                int hookY = (int) (screen.Height * HookOffset + offset);
 
-                // Move mouse for visualization.
+                // Move cursor for visualization.
                 InputWrapper.Input(InputAction.MoveMouse, 0, InputWrapper.MakeLParam(hookY - 100, bestItemX));
                 
                 Color originalPixel = screen.GetPixel(bestItemX, hookY);
+
                 while(!TokenSource.IsCancellationRequested && bestItemX != 0) {
                     var pixel = Window.GetPixel(bestItemX, hookY);
+
                     if(originalPixel != pixel) {
                         InputWrapper.Input(InputAction.KeyDown, 0x20);
                         InputWrapper.Input(InputAction.KeyUp, 0x20);
@@ -63,30 +71,32 @@ namespace LeafBlowerFiddleModel.Modules {
             }
         }
 
-        private static (int, int) GetBestItemCoordinates(Bitmap bitmap) {
+        private static Point GetBestItemCoordinates(Bitmap bitmap) {
             foreach(var itemPixel in Items) {
                 var coordinates = FindPixel(bitmap, itemPixel);
-                if(coordinates.Item1 != 0) {
+                if(coordinates.X != 0) {
                     return coordinates;
                 }
             }
-            return (0, 0);
+            return new Point(0, 0);
         }
 
-        private static (int, int) FindPixel(Bitmap bitmap, Color color) {
-            int scanWidthStart = (int) (bitmap.Width * 0.109375);
-            int scanWidthEnd = (int) (bitmap.Width * 0.869791);
-            int scanHeightStart =(int) (bitmap.Height * 0.129629);
-            int scanHeightEnd = (int) (bitmap.Height * 0.842592);
+        private static Point FindPixel(Bitmap bitmap, Color color) {
+            int scanWidthStart = (int) (bitmap.Width * ClawMachineWindowOffsetLeft);
+            int scanWidthEnd = (int) (bitmap.Width * ClawMachineWindowOffsetRight);
+            int scanHeightStart =(int) (bitmap.Height * ClawMachineWindowOffsetTop);
+            int scanHeightEnd = (int) (bitmap.Height * ClawMachineWindowOffsetBottom);
+
             for(int i = scanWidthStart; i < scanWidthEnd; i++) {
                 for(int j = scanHeightStart; j < scanHeightEnd; j++) {
                     var pixel = bitmap.GetPixel(i, j);
+
                     if(pixel.R == color.R && pixel.G == color.G && pixel.B == color.B) {
-                        return (i, j);
+                        return new Point(i, j);
                     }
                 }
             }
-            return (0, 0);
+            return new Point(0, 0);
         }
     }
 }
