@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32602.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeafBlowerFiddleView", "LeafBlowerFiddleView\LeafBlowerFiddleView.csproj", "{F1E9BBDD-605B-410B-89FA-920CFE53C645}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeafBlowerFiddleModel", "LeafBlowerFiddleModel\LeafBlowerFiddleModel.csproj", "{97A95369-EC17-4904-819A-7E4D45BE1792}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1E9BBDD-605B-410B-89FA-920CFE53C645}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E9BBDD-605B-410B-89FA-920CFE53C645}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E9BBDD-605B-410B-89FA-920CFE53C645}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E9BBDD-605B-410B-89FA-920CFE53C645}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97A95369-EC17-4904-819A-7E4D45BE1792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97A95369-EC17-4904-819A-7E4D45BE1792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97A95369-EC17-4904-819A-7E4D45BE1792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97A95369-EC17-4904-819A-7E4D45BE1792}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {93CAE200-9019-4BB6-8C25-60F390973C43}
+	EndGlobalSection
+EndGlobal
