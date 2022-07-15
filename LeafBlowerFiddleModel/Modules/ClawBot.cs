@@ -5,9 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace LeafBlowerFiddleModel.Modules {
-    public class ClawBot {
-        public bool IsEnabled { get; set; }
-        private CancellationTokenSource TokenSource { get; set; }
+    public class ClawBot : ModuleBase {
 
         private const double HookOffset = 0.275d;
         private const double ClawMachineWindowOffsetTop = 0.129629d;
@@ -31,19 +29,7 @@ namespace LeafBlowerFiddleModel.Modules {
             Color.FromArgb(96, 248, 17) // Green borb
         };
 
-        public void Toggle() {
-            if(!IsEnabled) {
-                TokenSource = new CancellationTokenSource();
-                Task.Run(() => Action());
-            }
-            else {
-                TokenSource.Cancel();
-            }
-
-            IsEnabled = !IsEnabled;
-        }
-
-        private void Action() {
+        protected override void Action() {
             while(!TokenSource.IsCancellationRequested) {
                 var screen = Window.PrintWindow();
                 var bestItemX = GetBestItemCoordinates(screen).X + 5;
@@ -55,7 +41,7 @@ namespace LeafBlowerFiddleModel.Modules {
 
                 // Move cursor for visualization.
                 InputWrapper.Input(InputAction.MoveMouse, 0, InputWrapper.MakeLParam(hookY - 100, bestItemX));
-                
+
                 Color originalPixel = screen.GetPixel(bestItemX, hookY);
 
                 while(!TokenSource.IsCancellationRequested && bestItemX != 0) {
@@ -84,7 +70,7 @@ namespace LeafBlowerFiddleModel.Modules {
         private Point FindPixel(Bitmap bitmap, Color color) {
             int scanWidthStart = (int) (bitmap.Width * ClawMachineWindowOffsetLeft);
             int scanWidthEnd = (int) (bitmap.Width * ClawMachineWindowOffsetRight);
-            int scanHeightStart =(int) (bitmap.Height * ClawMachineWindowOffsetTop);
+            int scanHeightStart = (int) (bitmap.Height * ClawMachineWindowOffsetTop);
             int scanHeightEnd = (int) (bitmap.Height * ClawMachineWindowOffsetBottom);
 
             for(int i = scanWidthStart; i < scanWidthEnd; i++) {

@@ -1,10 +1,11 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace LeafBlowerFiddleModel.Modules {
-    public class CollectAndDigBot {
-        public bool IsEnabled { get; set; }
-        private CancellationTokenSource TokenSource { get; set; }
+    public class CollectAndDigBot : ModuleBase {
+        [Obsolete("Does nothing")]
+        public override void Toggle() { }
 
         public void Toggle(int delay) {
             if(!IsEnabled) {
@@ -18,7 +19,7 @@ namespace LeafBlowerFiddleModel.Modules {
             IsEnabled = !IsEnabled;
         }
 
-        private void Action(int delay) {
+        protected void Action(int delay) {
             while(true) {
                 RECT size  = Window.GetSize();
                 for(int i = 0; i < size.Width; i += 100) {
