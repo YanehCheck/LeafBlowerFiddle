@@ -5,9 +5,9 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace LeafBlowerFiddleModel.Modules {
-    public static class ClawBot {
-        public static bool IsEnabled { get; set; }
-        private static CancellationTokenSource TokenSource { get; set; }
+    public class ClawBot {
+        public bool IsEnabled { get; set; }
+        private CancellationTokenSource TokenSource { get; set; }
 
         private const double HookOffset = 0.275d;
         private const double ClawMachineWindowOffsetTop = 0.129629d;
@@ -17,7 +17,7 @@ namespace LeafBlowerFiddleModel.Modules {
 
         // TODO - Add all item pixels
         // I am too lazy to add all the materials, items and community leaves lol.
-        public static Color[] Items { get; } = {
+        private Color[] Items { get; } = {
             Color.FromArgb(223, 197, 11), // Rare Chest
             Color.FromArgb(100, 116, 122), // Chest
             Color.FromArgb(199, 153, 92), // Chest
@@ -31,7 +31,7 @@ namespace LeafBlowerFiddleModel.Modules {
             Color.FromArgb(96, 248, 17) // Green borb
         };
 
-        public static void Toggle() {
+        public void Toggle() {
             if(!IsEnabled) {
                 TokenSource = new CancellationTokenSource();
                 Task.Run(() => Action());
@@ -43,7 +43,7 @@ namespace LeafBlowerFiddleModel.Modules {
             IsEnabled = !IsEnabled;
         }
 
-        private static void Action() {
+        private void Action() {
             while(!TokenSource.IsCancellationRequested) {
                 var screen = Window.PrintWindow();
                 var bestItemX = GetBestItemCoordinates(screen).X + 5;
@@ -71,7 +71,7 @@ namespace LeafBlowerFiddleModel.Modules {
             }
         }
 
-        private static Point GetBestItemCoordinates(Bitmap bitmap) {
+        private Point GetBestItemCoordinates(Bitmap bitmap) {
             foreach(var itemPixel in Items) {
                 var coordinates = FindPixel(bitmap, itemPixel);
                 if(coordinates.X != 0) {
@@ -81,7 +81,7 @@ namespace LeafBlowerFiddleModel.Modules {
             return new Point(0, 0);
         }
 
-        private static Point FindPixel(Bitmap bitmap, Color color) {
+        private Point FindPixel(Bitmap bitmap, Color color) {
             int scanWidthStart = (int) (bitmap.Width * ClawMachineWindowOffsetLeft);
             int scanWidthEnd = (int) (bitmap.Width * ClawMachineWindowOffsetRight);
             int scanHeightStart =(int) (bitmap.Height * ClawMachineWindowOffsetTop);

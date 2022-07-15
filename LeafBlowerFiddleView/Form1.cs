@@ -1,9 +1,12 @@
 using System.Runtime.CompilerServices;
+using LeafBlowerFiddleModel.Modules;
 
 namespace LeafBlowerFiddleView;
 using LeafBlowerFiddleModel;
 
 public partial class Form1 : Form {
+    public CollectAndDigBot CollectAndDigModule = new();
+    public ClawBot ClawModule = new ClawBot();
     public Form1() {
         InitializeComponent();
     }
@@ -19,13 +22,13 @@ public partial class Form1 : Form {
         }
     }
     private void buttonDigBot_Click(object sender, EventArgs e) {
-        LeafBlowerFiddleModel.Modules.CollectAndDigBot.Toggle((int) numericUpDownDigAndCollectDelay.Value);
-        buttonDigBot.Text = LeafBlowerFiddleModel.Modules.CollectAndDigBot.IsEnabled ? "Stop" : "Start";
+        CollectAndDigModule.Toggle((int) numericUpDownDigAndCollectDelay.Value);
+        buttonDigBot.Text = CollectAndDigModule.IsEnabled ? "Stop" : "Start";
     }
 
     private void buttonClawBot_Click(object sender, EventArgs e) {
-        LeafBlowerFiddleModel.Modules.ClawBot.Toggle();
-        buttonClawBot.Text = LeafBlowerFiddleModel.Modules.ClawBot.IsEnabled ? "Stop" : "Start";
+        ClawModule.Toggle();
+        buttonClawBot.Text = ClawModule.IsEnabled ? "Stop" : "Start";
     }
 
     #region Custom border and form control
