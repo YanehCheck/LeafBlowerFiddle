@@ -1,11 +1,13 @@
 # Leaf Blower Fiddle
 
+### Compile it yourself :P
+
 Small automation tool for Leaf Blower Revolution game made in WinForms.
 
 The tool works as a bit over the top macro more than a cheat.
 It uses Windows API to capture the game window and send mouse and keyboard input. That means it even works in the background, co you can actually use your computer while running it, unlike traditional macro!
 
-The tool is currently in very rough stage so expect some bugs.
+The tool is was made as a personal project, so expect bugs on some platforms.
 
 ## Usage
 
@@ -22,8 +24,6 @@ Before you try to start any modules, you have to get the game window reference b
   - Automizes the claw machine, you have to have auto start enabled
   - Useful for early game gems, chests, scrolls and so on
   - ~~*One day I will maybe make the priority list of what to claw customizable*~~
- 
-*More to come...*
 
 ## Can i get banned?
 
