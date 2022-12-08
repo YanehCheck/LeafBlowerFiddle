@@ -80,7 +80,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 51);
+            this.panel1.Size = new System.Drawing.Size(462, 51);
             this.panel1.TabIndex = 2;
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MakeControlDraggableEvent);
             // 
@@ -99,7 +99,7 @@
             // buttonTray
             // 
             this.buttonTray.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonTray.Location = new System.Drawing.Point(701, 12);
+            this.buttonTray.Location = new System.Drawing.Point(359, 15);
             this.buttonTray.Name = "buttonTray";
             this.buttonTray.Size = new System.Drawing.Size(25, 25);
             this.buttonTray.TabIndex = 2;
@@ -110,7 +110,7 @@
             // buttonMinimize
             // 
             this.buttonMinimize.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonMinimize.Location = new System.Drawing.Point(732, 12);
+            this.buttonMinimize.Location = new System.Drawing.Point(390, 15);
             this.buttonMinimize.Name = "buttonMinimize";
             this.buttonMinimize.Size = new System.Drawing.Size(25, 25);
             this.buttonMinimize.TabIndex = 1;
@@ -121,7 +121,7 @@
             // buttonClose
             // 
             this.buttonClose.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.buttonClose.Location = new System.Drawing.Point(763, 12);
+            this.buttonClose.Location = new System.Drawing.Point(421, 15);
             this.buttonClose.Name = "buttonClose";
             this.buttonClose.Size = new System.Drawing.Size(25, 25);
             this.buttonClose.TabIndex = 0;
@@ -187,7 +187,7 @@
             this.panelGameWindowSearch.Controls.Add(this.labelTitleGameWindow);
             this.panelGameWindowSearch.Controls.Add(this.panelFoundText);
             this.panelGameWindowSearch.Controls.Add(this.buttonSearchGameWindow);
-            this.panelGameWindowSearch.Location = new System.Drawing.Point(10, 361);
+            this.panelGameWindowSearch.Location = new System.Drawing.Point(298, 57);
             this.panelGameWindowSearch.Name = "panelGameWindowSearch";
             this.panelGameWindowSearch.Size = new System.Drawing.Size(138, 77);
             this.panelGameWindowSearch.TabIndex = 4;
@@ -271,7 +271,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(462, 197);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelGameWindowSearch);
             this.Controls.Add(this.panelDigAndCollect);
