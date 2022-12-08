@@ -43,17 +43,31 @@ namespace LeafBlowerFiddleModel.Modules {
                 InputWrapper.Input(InputAction.MoveMouse, 0, InputWrapper.MakeLParam(hookY - 100, bestItemX));
 
                 Color originalPixel = screen.GetPixel(bestItemX, hookY);
+                var originalPixelBack = Window.GetPixel((int) ClawMachineWindowOffsetLeft * screen.Width + 100, hookY);
 
-                while(!TokenSource.IsCancellationRequested && bestItemX != 0) {
+                var tokenSource = new CancellationTokenSource();
+                bool IsStuck = false;
+                Task.Run(() => FailSafe(10000, tokenSource, ref IsStuck));
+
+                while(!TokenSource.IsCancellationRequested && !IsStuck) {
                     var pixel = Window.GetPixel(bestItemX, hookY);
 
-                    if(originalPixel != pixel) {
+                    if(originalPixel != pixel || bestItemX == 0) {
+                        tokenSource.Cancel();
                         InputWrapper.Input(InputAction.KeyDown, 0x20);
                         InputWrapper.Input(InputAction.KeyUp, 0x20);
-                        Thread.Sleep(5000);
+                        Thread.Sleep(3000);
+                        screen.Dispose();
                         break;
                     }
                 }
+            }
+        }
+
+        private void FailSafe(int time, CancellationTokenSource cancelToken, ref bool IsStuck) {
+            Thread.Sleep(time);
+            if (!cancelToken.IsCancellationRequested) {
+                IsStuck = true;
             }
         }
 

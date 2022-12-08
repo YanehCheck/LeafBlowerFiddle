@@ -9,6 +9,8 @@ public partial class Form1 : Form {
     public ClawBot ClawModule = new ClawBot();
     public Form1() {
         InitializeComponent();
+        GlobalHotkeys.RegisterHotKey(this.Handle, GlobalHotkeys.DIG_ID, 3, (int) Keys.NumPad1);
+        GlobalHotkeys.RegisterHotKey(this.Handle, GlobalHotkeys.CLAW_ID, 3, (int) Keys.NumPad2);
     }
     private void buttonSearchGameWindow_Click(object sender, EventArgs e) {
         Window.SetGameHandlePtr();
@@ -21,12 +23,12 @@ public partial class Form1 : Form {
             labelFoundGameWindow.ForeColor = Color.Red;
         }
     }
-    private void buttonDigBot_Click(object sender, EventArgs e) {
+    public void buttonDigBot_Click(object sender, EventArgs e) {
         CollectAndDigModule.Toggle((int) numericUpDownDigAndCollectDelay.Value);
         buttonDigBot.Text = CollectAndDigModule.IsEnabled ? "Stop" : "Start";
     }
 
-    private void buttonClawBot_Click(object sender, EventArgs e) {
+    public void buttonClawBot_Click(object sender, EventArgs e) {
         ClawModule.Toggle();
         buttonClawBot.Text = ClawModule.IsEnabled ? "Stop" : "Start";
     }
@@ -54,6 +56,16 @@ public partial class Form1 : Form {
 
     private void buttonTray_Click(object sender, EventArgs e) {
 
+    }
+
+    protected override void WndProc(ref Message m) {
+        if(m.Msg == 0x0312 && m.WParam.ToInt32() == GlobalHotkeys.DIG_ID) {
+            buttonDigBot_Click(this, EventArgs.Empty);
+        }
+        if(m.Msg == 0x0312 && m.WParam.ToInt32() == GlobalHotkeys.CLAW_ID) {
+            buttonClawBot_Click(this, EventArgs.Empty);
+        }
+        base.WndProc(ref m);
     }
     #endregion
 }
